@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.jvegaf.JMP3Tag.Model.TracksRepository;
 import org.jvegaf.JMP3Tag.Model.TracksTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -53,6 +55,11 @@ public class MainFrame extends JFrame {
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		mnFile.add(mntmExit);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -74,6 +81,9 @@ public class MainFrame extends JFrame {
 		buttonsPanel.add(btnOpenFile);
 		
 		JButton btnSaveAll = new JButton("Save All");
+		btnSaveAll.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\eclipse-workspace\\JMP3Tag\\icons\\save64.png"));
+		btnSaveAll.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnSaveAll.setVerticalTextPosition(SwingConstants.BOTTOM);
 		buttonsPanel.add(btnSaveAll);
 		
 		JTable mainTable = new JTable();

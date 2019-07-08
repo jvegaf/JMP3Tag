@@ -49,4 +49,16 @@ public class TracksTableModel extends AbstractTableModel{
 		return null;
 	}
 
+	@Override
+	public String getColumnName(int column) {
+		return this.columnNames[column];
+	}
+
+	@Override
+	public boolean isCellEditable(int column, int row) {
+		return false;
+	}
+	
+	
+
 }

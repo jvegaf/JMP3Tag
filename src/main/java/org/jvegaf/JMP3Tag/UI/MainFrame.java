@@ -2,9 +2,13 @@ package org.jvegaf.JMP3Tag.UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,8 +21,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.jvegaf.JMP3Tag.Model.TracksRepository;
 import org.jvegaf.JMP3Tag.Model.TracksTableModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -61,8 +63,9 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnFile.add(mntmExit);
+		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
@@ -72,6 +75,23 @@ public class MainFrame extends JFrame {
 		buttonsPanel.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		JButton btnOpenFolder = new JButton("Open Folder");
+		btnOpenFolder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser fc = new JFileChooser();
+				fc.setDialogTitle("Select a Mp3 Folder");
+				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				switch (fc.showOpenDialog(null)) {
+				case JFileChooser.APPROVE_OPTION:
+					File selectedFolder = new File(fc.getSelectedFile().toString());
+					System.out.println("directory ? " +selectedFolder.isDirectory());
+					System.out.println("route: " + selectedFolder.getAbsolutePath());
+					break;
+				default:
+					System.out.println("no selection");
+					break;
+				}
+			}
+		});
 		btnOpenFolder.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\JMp3Tag\\icons\\open.png"));
 		btnOpenFolder.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnOpenFolder.setVerticalTextPosition(SwingConstants.BOTTOM);

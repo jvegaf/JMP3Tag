@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Track {
 
+	private String path;
 	private String title;
 	private String artist;
 	private String album;
@@ -13,6 +14,16 @@ public class Track {
 	private Year year;
 	private int bpm;
 	private ImageIcon cover;
+	private String fileName;
+	
+	
+	public String getPath() {
+		return this.path;
+	}
+	
+	public void setPath(String path) {
+		this.path = path;
+	}
 	
 	public String getTitle() {
 		return title;
@@ -57,10 +68,24 @@ public class Track {
 		this.cover = cover;
 	}
 	
+	public String getFileName() {
+		return this.fileName;
+	}
+	
+	public void setFileName(String fn) {
+		this.fileName = fn;
+	}
+	
 	public Track(){}
 	
-	public Track(String title, String artist, String album, String genre, Year year, int bpm, ImageIcon cover) {
+	public Track(String path, String filename) {
+		this.path = path;
+		this.fileName = filename;
+	}
+	
+	public Track(String path, String title, String artist, String album, String genre, Year year, int bpm, ImageIcon cover, String filename) {
 		super();
+		this.path = path;
 		this.title = title;
 		this.artist = artist;
 		this.album = album;
@@ -68,15 +93,15 @@ public class Track {
 		this.year = year;
 		this.bpm = bpm;
 		this.cover = cover;
+		this.fileName = filename;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Track [" + (title != null ? "title=" + title + ", " : "")
-				+ (artist != null ? "artist=" + artist + ", " : "") + (album != null ? "album=" + album + ", " : "")
-				+ (genre != null ? "genre=" + genre + ", " : "") + (year != null ? "year=" + year + ", " : "") + "bpm="
-				+ bpm + "]";
+		return "Track [path=" + path + ", title=" + title + ", artist=" + artist + ", album=" + album + ", genre="
+				+ genre + ", year=" + year + ", bpm=" + bpm + ", cover=" + cover + ", fileName=" + fileName + "]";
 	}
+	
 	
 	
 	

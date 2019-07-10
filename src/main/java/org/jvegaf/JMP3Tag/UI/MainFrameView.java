@@ -2,9 +2,9 @@ package org.jvegaf.JMP3Tag.UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,27 +19,37 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.jvegaf.JMP3Tag.Controllers.MainFrameController;
 import org.jvegaf.JMP3Tag.Model.TracksRepository;
 import org.jvegaf.JMP3Tag.Model.TracksTableModel;
 
-public class MainFrame extends JFrame {
+public class MainFrameView extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private MainFrameController mfc;
 	private JPanel contentPane;
 	private TracksRepository repo;
+	private TracksTableModel ttm;
 
 	/**
 	 * Create the frame.
+	 * @param mainFrameController 
+	 * @param tr 
 	 */
-	public MainFrame() {
-		
-		repo = new TracksRepository();
-		
+	public MainFrameView(MainFrameController mainFrameController, TracksRepository tr) {
+		this.mfc = mainFrameController;
+		this.repo = tr;
+		this.ttm = new TracksTableModel(repo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		/* for show in full screen */
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		int xSize = ((int) tk.getScreenSize().getWidth());
+		int ySize = ((int) tk.getScreenSize().getHeight());
+		setSize(xSize,ySize);
+		//setBounds(100, 100, 800, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -82,9 +92,8 @@ public class MainFrame extends JFrame {
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				switch (fc.showOpenDialog(null)) {
 				case JFileChooser.APPROVE_OPTION:
-					File selectedFolder = new File(fc.getSelectedFile().toString());
-					System.out.println("directory ? " +selectedFolder.isDirectory());
-					System.out.println("route: " + selectedFolder.getAbsolutePath());
+					mfc.ManagementFolder(fc.getSelectedFile());
+					ttm.fireTableDataChanged();
 					break;
 				default:
 					System.out.println("no selection");
@@ -98,16 +107,19 @@ public class MainFrame extends JFrame {
 		buttonsPanel.add(btnOpenFolder);
 		
 		JButton btnOpenFile = new JButton("Open File");
+		btnOpenFile.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\JMp3Tag\\icons\\open.png"));
+		btnOpenFile.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnOpenFile.setVerticalTextPosition(SwingConstants.BOTTOM);
 		buttonsPanel.add(btnOpenFile);
 		
 		JButton btnSaveAll = new JButton("Save All");
-		btnSaveAll.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\eclipse-workspace\\JMP3Tag\\icons\\save64.png"));
+		btnSaveAll.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\eclipse-workspace\\JMP3Tag\\icons\\save32.png"));
 		btnSaveAll.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSaveAll.setVerticalTextPosition(SwingConstants.BOTTOM);
 		buttonsPanel.add(btnSaveAll);
 		
 		JTable mainTable = new JTable();
-		mainTable.setModel(new TracksTableModel(this.repo));
+		mainTable.setModel(ttm);
 		
 		JScrollPane scrollPane = new JScrollPane(mainTable);
 		contentPane.add(scrollPane, BorderLayout.CENTER);

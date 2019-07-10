@@ -28,7 +28,7 @@ public class TracksTableModel extends AbstractTableModel{
 	}
 
 	@Override
-	public Object getValueAt(int column, int row) {
+	public Object getValueAt(int row, int column) {
 		Track t = collection.get(row);
 		switch (column) {
 		case 0:
@@ -40,11 +40,14 @@ public class TracksTableModel extends AbstractTableModel{
 		case 3:
 			return t.getGenre();
 		case 4:
-			return t.getYear().toString();
+			//return t.getYear().toString();
+			return "not yet";
 		case 5:
 			return String.valueOf(t.getBpm());
 		case 6:
 			return "not yet";
+		case 7:
+			return t.getFileName();
 		}
 		return null;
 	}
@@ -55,7 +58,7 @@ public class TracksTableModel extends AbstractTableModel{
 	}
 
 	@Override
-	public boolean isCellEditable(int column, int row) {
+	public boolean isCellEditable(int row, int column) {
 		return false;
 	}
 	

@@ -6,7 +6,7 @@ import java.util.List;
 public class TracksRepository {
 
 	private List<Track> collection;
-	private String[] properties = { "Title", "Artist", "Album", "Genre", "Year", "BPM", "Cover"};
+	private String[] properties = { "Title", "Artist", "Album", "Genre", "Year", "BPM", "Cover", "File Name"};
 	
 	/**
 	 * getters

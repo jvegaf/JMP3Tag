@@ -16,8 +16,7 @@ public class FileManager {
 	
 	public FileManager(File path) {
 		this.folder = path;
-		File[] filesArray = folder.listFiles();
-		files = new ArrayList<File>(Arrays.asList(filesArray)); 		
+		files = new ArrayList<File>(Arrays.asList(folder.listFiles())); 		
 	}
 	
 	public ArrayList<File> getFiles(){

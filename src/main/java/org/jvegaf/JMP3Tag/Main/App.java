@@ -2,7 +2,7 @@ package org.jvegaf.JMP3Tag.Main;
 
 import java.awt.EventQueue;
 
-import org.jvegaf.JMP3Tag.UI.MainFrame;
+import org.jvegaf.JMP3Tag.Controllers.MainFrameController;
 
 /**
  * Hello world!
@@ -16,8 +16,8 @@ public class App
     	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
+					MainFrameController mfc = new MainFrameController();
+					mfc.showView();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

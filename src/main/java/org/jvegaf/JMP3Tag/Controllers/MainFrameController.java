@@ -22,13 +22,17 @@ public class MainFrameController {
 		frame.setVisible(true);			
 	}
 	
-	public void ManagementFolder(File folder) {
+	public void manageFolder(File folder) {
 		FileManager fm = new FileManager(folder);
 		this.files = fm.getFiles();
 		for (File file : files) {
-			tr.addTrack(new Track(file.getAbsolutePath(), file.getName()));
+			tr.addTrack(file);
 		}
 		
+	}
+
+	public void manageFile(File selectedFile) {
+		tr.addTrack(new Track(selectedFile.getAbsolutePath(), selectedFile.getName()));
 	}
 	
 	

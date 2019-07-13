@@ -1,12 +1,16 @@
 package org.jvegaf.JMP3Tag.Model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jvegaf.JMP3Tag.Helpers.TagsManager;
 
 public class TracksRepository {
 
 	private List<Track> collection;
 	private String[] properties = { "Title", "Artist", "Album", "Genre", "Year", "BPM", "Cover", "File Name"};
+	private TagsManager tm;
 	
 	/**
 	 * getters
@@ -33,6 +37,13 @@ public class TracksRepository {
 	
 	public void addTrack(Track t) {
 		this.collection.add(t);
+	}
+	
+	public void addTrack(File file) {
+		tm = new TagsManager(file);
+		Track t = tm.getTrackWithTags();
+		this.collection.add(t);
+		tm = null;
 	}
 	
 	public void removeTrack(Track t){

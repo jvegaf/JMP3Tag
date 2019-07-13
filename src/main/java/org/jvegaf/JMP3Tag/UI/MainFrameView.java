@@ -1,6 +1,7 @@
 package org.jvegaf.JMP3Tag.UI;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class MainFrameView extends JFrame {
 	private JPanel contentPane;
 	private TracksRepository repo;
 	private TracksTableModel ttm;
-
+	
 	/**
 	 * Create the frame.
 	 * @param mainFrameController 
@@ -92,7 +93,7 @@ public class MainFrameView extends JFrame {
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				switch (fc.showOpenDialog(null)) {
 				case JFileChooser.APPROVE_OPTION:
-					mfc.ManagementFolder(fc.getSelectedFile());
+					mfc.manageFolder(fc.getSelectedFile());
 					ttm.fireTableDataChanged();
 					break;
 				default:
@@ -111,6 +112,25 @@ public class MainFrameView extends JFrame {
 		btnOpenFile.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnOpenFile.setVerticalTextPosition(SwingConstants.BOTTOM);
 		buttonsPanel.add(btnOpenFile);
+		btnOpenFile.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser fc = new JFileChooser();
+				fc.setDialogTitle("Select a Mp3 File");
+				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				//TODO: filter for only accept mp3 files
+				switch (fc.showOpenDialog(null)) {
+				case JFileChooser.APPROVE_OPTION:
+					mfc.manageFile(fc.getSelectedFile());
+					ttm.fireTableDataChanged();
+					break;
+				default:
+					System.out.println("no selection");
+					break;
+				}
+			}
+		});
 		
 		JButton btnSaveAll = new JButton("Save All");
 		btnSaveAll.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\eclipse-workspace\\JMP3Tag\\icons\\save32.png"));
@@ -118,8 +138,31 @@ public class MainFrameView extends JFrame {
 		btnSaveAll.setVerticalTextPosition(SwingConstants.BOTTOM);
 		buttonsPanel.add(btnSaveAll);
 		
+		JButton btnClearList = new JButton("Clear List");
+		btnClearList.setIcon(new ImageIcon("C:\\Users\\josev\\Google Drive\\Desarrollo\\Java\\eclipse-workspace\\JMP3Tag\\icons\\clear.png"));
+		btnClearList.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnClearList.setVerticalTextPosition(SwingConstants.BOTTOM);
+		buttonsPanel.add(btnClearList);
+		
 		JTable mainTable = new JTable();
 		mainTable.setModel(ttm);
+		
+		// set Font To table
+        mainTable.setFont(new Font("", 0, 14));
+        
+        // set height to the table rows
+        mainTable.setRowHeight(20);
+        
+        mainTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        mainTable.getColumnModel().getColumn(0).setPreferredWidth(325);
+        mainTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+        mainTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+        mainTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+        mainTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+        mainTable.getColumnModel().getColumn(5).setPreferredWidth(40);
+        mainTable.getColumnModel().getColumn(6).setPreferredWidth(40);
+        mainTable.getColumnModel().getColumn(7).setPreferredWidth(320);
+        //ttm.fireTableStructureChanged();
 		
 		JScrollPane scrollPane = new JScrollPane(mainTable);
 		contentPane.add(scrollPane, BorderLayout.CENTER);

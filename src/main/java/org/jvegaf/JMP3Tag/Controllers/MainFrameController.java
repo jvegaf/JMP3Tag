@@ -24,6 +24,7 @@ public class MainFrameController {
 	
 	public void manageFolder(File folder) {
 		FileManager fm = new FileManager(folder);
+		
 		this.files = fm.getFiles();
 		for (File file : files) {
 			tr.addTrack(file);
